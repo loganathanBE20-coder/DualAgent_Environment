@@ -21,7 +21,7 @@ if not API_KEY:
     
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-7B-Instruct")
-TASK_NAME = os.getenv("MY_ENV_V4_TASK", "adversarial-debate")
+TASK_NAME = os.getenv("MY_ENV_V4_TASK", "task_1_easy")
 BENCHMARK = os.getenv("MY_ENV_V4_BENCHMARK", "dualagent_env")
 MAX_STEPS = 5
 TEMPERATURE = 0.7
@@ -170,8 +170,8 @@ async def main() -> None:
             if done:
                 break
 
-        score = sum(rewards) / MAX_TOTAL_REWARD if MAX_TOTAL_REWARD > 0 else 0.0
-        score = min(max(score, 0.0), 1.0)  # clamp to [0, 1]
+        score = sum(rewards) / MAX_TOTAL_REWARD if MAX_TOTAL_REWARD > 0 else 0.01
+        score = min(max(score, 0.01), 0.99)  # clamp to (0, 1) strictly
         success = score >= SUCCESS_SCORE_THRESHOLD
 
     finally:

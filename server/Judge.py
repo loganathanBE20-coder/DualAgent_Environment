@@ -37,8 +37,8 @@ class HuggingFaceJudge:
         Who is factually correct? 
         You MUST respond with ONLY raw JSON matching this exact format.
         {{
-            "winner": "positive",
-            "confidence_score": 1.0,
+           "winner": "positive",
+            "confidence_score": 0.99,
             "reason": "One sentence explanation."
         }}
         """
@@ -62,12 +62,15 @@ class HuggingFaceJudge:
                 result_dict = json.loads(json_str)
                 return JudgeRuling(
                     winner=result_dict.get("winner", "consensus"),
-                    confidence_score=result_dict.get("confidence_score", 0.0),
+                    confidence_score=result_dict.get("confidence_score", 0.01),
                     reason=result_dict.get("reason", "Parsed successfully.")
                 )
             else:
-                return JudgeRuling("consensus", 0.0, "Judge Error: Qwen did not output JSON.")
+                return JudgeRuling("consensus", 0.01, "Judge Error: Qwen did not output JSON.")
+
                 
         except Exception as e:
             # This puts the EXACT Hugging Face error into the transcript!
-            return JudgeRuling("consensus", 0.0, f"CRITICAL API ERROR: {str(e)}")
+            
+            return JudgeRuling("consensus", 0.01, f"CRITICAL API ERROR: {str(e)}")
+

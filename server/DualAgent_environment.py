@@ -56,7 +56,7 @@ class DualagentEnvironment(Environment):
             negative_counter="",
             judge_winner="none",
             done=False,
-            reward=0.0
+            reward=0.01
         )
 
     def step(self, action: DualagentAction) -> DualagentObservation: 
@@ -85,14 +85,14 @@ class DualagentEnvironment(Environment):
             
         ruling = self.judge.score_round(pos=action, neg=MockNeg(), truth=self.current_task['truth'])
 
-        # 3. STRICT REWARD SYSTEM (0.0 to 1.0)
-        reward = 0.0
+     # 3. STRICT REWARD SYSTEM (0.01 to 0.99)
+        reward = 0.01
         if ruling.winner == "positive":
-            reward = 1.0
+            reward = 0.99
         elif ruling.winner == "consensus":
             reward = 0.50
         else: # Negative wins
-            reward = 0.0
+            reward = 0.01
 
         # Update Transcript
         self.transcript += f"--- TURN {self._state.step_count} ---\n"

@@ -5,3 +5,16 @@ runtime: fastapi
 app: server.app:app
 port: 8000
 
+tasks:
+  - id: "task_1_easy"
+    name: "Sky Color Debate"
+    description: "Debate the color of the sky."
+    difficulty: "easy"
+  - id: "task_2_medium"
+    name: "Python List Debate"
+    description: "Debate Python list data structures."
+    difficulty: "medium"
+  - id: "task_3_hard"
+    name: "ETF Geopolitics Debate"
+    description: "Debate geopolitical impacts on ETFs."
+    difficulty: "hard"
